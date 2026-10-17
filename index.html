@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pemesanan Tiket Dies Natalis Teknik Industri</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --navy-dark: #0A1128;
+      --navy-main: #1C2541;
+      --navy-light: #2A365C;
+      --gold-accent: #D4AF37;
+      --gold-hover: #F3E5AB;
+      --text-light: #F8F9FA;
+      --text-muted: #A0AABF;
+      --glass-bg: rgba(28, 37, 65, 0.85);
+      --glass-border: rgba(212, 175, 55, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(10, 17, 40, 0.75), rgba(5, 8, 20, 0.85)), 
+                  url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1.5rem;
+    }
+
+    .header h1 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-accent);
+      font-size: 2rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Informasi Sisa Kuota per Kategori */
+    .quota-info-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+
+    .quota-card {
+      background: rgba(10, 17, 40, 0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.6rem;
+      text-align: center;
+    }
+
+    .quota-card small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .quota-card span {
+      color: var(--gold-accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .payment-box {
+      background: rgba(10, 17, 40, 0.6);
+      border: 1px dashed var(--gold-accent);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .payment-box h3 {
+      font-size: 1rem;
+      color: var(--gold-accent);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .bank-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .bank-item {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.8rem;
+      border-radius: 8px;
+    }
+
+    .bank-item strong {
+      color: var(--text-light);
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1.3rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(10, 17, 40, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+    select.form-control option {
+      background-color: var(--navy-dark);
+      color: var(--text-light);
+    }
+
+    input[type="file"] {
+      padding: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    input[type="file"]::-webkit-file-upload-button {
+      background: var(--navy-light);
+      border: 1px solid var(--glass-border);
+      color: var(--gold-accent);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 0.8rem;
+      transition: 0.3s;
+    }
+
+    input[type="file"]::-webkit-file-upload-button:hover {
+      background: var(--gold-accent);
+      color: var(--navy-dark);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #D4AF37, #AA7C11);
+      border: none;
+      border-radius: 10px;
+      color: var(--navy-dark);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-submit:disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .loading-spinner {
+      display: none;
+    }
+
+    /* Modal / Popup Sukses */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--navy-main);
+      border: 1px solid var(--gold-accent);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content i.fa-circle-check {
+      font-size: 4rem;
+      color: #28a745;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .modal-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.9rem;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .btn-wa:hover {
+      background: #1ebc57;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BANNER MODE TRIAL -->
+  <div id="trialBanner" style="
+    background: #ffc107; 
+    color: #000; 
+    text-align: center; 
+    padding: 0.6rem; 
+    font-weight: bold; 
+    font-size: 0.9rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    display: none;">
+    ⚠️ MODE UJI COBA (TRIAL) AKTIF - Data masuk ke Sheet "Trial_Tiket"
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <h1>PEMESANAN TIKET DIES NATALIS HMTI 2026</h1>
+      <p>Himpunan Mahasiswa Teknik Industri</p>
+      
+      <!-- KOTAK INFORMASI SISA KUOTA TIAP KATEGORI -->
+      <div class="quota-info-box">
+        <div class="quota-card">
+          <small>Early Ticket</small>
+          <span id="sisaEarly">...</span>
+        </div>
+        <div class="quota-card">
+          <small>Presale Ticket</small>
+          <span id="sisaPresale">...</span>
+        </div>
+        <div class="quota-card">
+          <small>OTS Ticket</small>
+          <span id="sisaOts">...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informasi Rekening Pembayaran -->
+    <div class="payment-box">
+      <h3><i class="fa-solid fa-wallet"></i> Informasi Rekening Pembayaran</h3>
+      <div class="bank-details">
+        <div class="bank-item">
+          <small>Bank SeaBank</small>
+          <strong>9010-8321-6572</strong>
+          <small>a.n. Dwi Lestari</small>
+        </div>
+        <div class="bank-item">
+          <small>E-Wallet (Dana)</small>
+          <strong>0856-9496-5938</strong>
+          <small>a.n. Dwi Lestari</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Registrasi -->
+    <form id="registrationForm">
+      
+      <!-- PILIHAN KATEGORI TIKET -->
+      <div class="form-group">
+        <label for="kategoriTiket"><i class="fa-solid fa-ticket"></i> Pilih Kategori Tiket</label>
+        <select id="kategoriTiket" class="form-control" required>
+          <option value="" disabled selected>Pilih Kategori Tiket</option>
+          <option value="Early Ticket">Early Ticket Rp 40.000</option>
+          <option value="Presale Ticket">Presale Ticket Rp 45.000</option>
+          <option value="OTS Ticket">OTS Ticket (On The Spot) Rp 55.000</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="nama"><i class="fa-solid fa-user"></i> Nama Lengkap</label>
+        <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email"><i class="fa-solid fa-envelope"></i> Alamat Email Kampus (@mhs.ubpkarawang.ac.id)</label>
+        <input 
+          type="email" 
+          id="email" 
+          class="form-control" 
+          placeholder="tiXX.abyz@mhs.ubpkarawang.ac.id" 
+          pattern="^[a-zA-Z0-9._%+-]+@mhs\.ubpkarawang\.ac\.id$"
+          title="Wajib menggunakan email mahasiswa resmi dengan akhiran @mhs.ubpkarawang.ac.id"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="prodi"><i class="fa-solid fa-graduation-cap"></i> Program Studi</label>
+        <select id="prodi" class="form-control" required>
+          <option value="" disabled selected>Pilih Program Studi</option>
+          <option value="Teknik Industri">Teknik Industri</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="angkatan"><i class="fa-solid fa-calendar"></i> Angkatan</label>
+        <input type="number" id="angkatan" class="form-control" placeholder="Contoh: 2022" min="2000" max="2026" required>
+      </div>
+
+      <div class="form-group">
+        <label for="whatsapp"><i class="fa-brands fa-whatsapp"></i> Nomor WhatsApp</label>
+        <input type="tel" id="whatsapp" class="form-control" placeholder="Contoh: 08123456789" required>
+      </div>
+
+      <div class="form-group">
+        <label for="jenisKartu"><i class="fa-solid fa-id-card-clip"></i> Jenis Kartu Identitas</label>
+        <select id="jenisKartu" class="form-control" required>
+          <option value="" disabled selected>Pilih Salah Satu Kartu Yang Dimiliki</option>
+          <option value="KTM" selected>KTM (Kartu Tanda Mahasiswa)</option>
+          <option value="KTA">KTA (Kartu Tanda Anggota)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="kartuFile" id="labelKartu"><i class="fa-solid fa-id-card"></i> Upload KTM (JPG, PNG, PDF)</label>
+        <input type="file" id="kartuFile" class="form-control" accept="image/*,.pdf" required>
+      </div>
+
+      <div class="form-group">
+        <label for="buktiFile"><i class="fa-solid fa-file-invoice-dollar"></i> Upload Bukti Pembayaran (JPG, PNG, PDF)</label>
+        <input type="file" id="buktiFile" class="form-control" accept="image/*,.pdf" required>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">
+        <span>Kirim & Pesan Tiket</span>
+        <i class="fa-solid fa-spinner fa-spin loading-spinner" id="spinner"></i>
+      </button>
+    </form>
+  </div>
+
+  <!-- Modal Sukses / Redirect ke WA -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <i class="fa-solid fa-circle-check"></i>
+      <h2>Pendaftaran Berhasil!</h2>
+      <p>Data dan berkas pembayaran Anda telah berhasil tercatat di sistem kami. Silakan klik tombol di bawah untuk bergabung ke grup WhatsApp resmi peserta.</p>
+      <a href="https://chat.whatsapp.com/LdUr2EeJ3q7HOUTOvCnMHf" target="_blank" class="btn-wa">
+        <i class="fa-brands fa-whatsapp"></i> Join Grup WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwacOqwVtJr7Za_JIlHO7ZWhUQFhcvZ3vMD1c0lZUd33HwKEsl9BHEgsYIg4Wt4iAw9w/exec";
+
+    const form = document.getElementById('registrationForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('spinner');
+    const successModal = document.getElementById('successModal');
+    const jenisKartuSelect = document.getElementById('jenisKartu');
+    const labelKartu = document.getElementById('labelKartu');
+    
+    const sisaEarly = document.getElementById('sisaEarly');
+    const sisaPresale = document.getElementById('sisaPresale');
+    const sisaOts = document.getElementById('sisaOts');
+
+    // Ambil Data Sisa Kuota Real-time
+    async function loadKuotaInfo() {
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
+
+        if (data.isTrial) {
+          document.getElementById('trialBanner').style.display = 'block';
+          document.body.style.paddingTop = '3rem';
+        }
+
+        sisaEarly.textContent = `${data.categories["Early Ticket"].sisa} / ${data.categories["Early Ticket"].max}`;
+        sisaPresale.textContent = `${data.categories["Presale Ticket"].sisa} / ${data.categories["Presale Ticket"].max}`;
+        sisaOts.textContent = `${data.categories["OTS Ticket"].sisa} / ${data.categories["OTS Ticket"].max}`;
+
+      } catch (err) {
+        console.error("Gagal mengambil kuota:", err);
+      }
+    }
+
+    loadKuotaInfo();
+
+    jenisKartuSelect.addEventListener('change', (e) => {
+      const jenis = e.target.value;
+      labelKartu.innerHTML = `<i class="fa-solid fa-id-card"></i> Upload ${jenis} (JPG, PNG, PDF)`;
+    });
+
+    const fileToBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const emailInput = document.getElementById('email').value.trim().toLowerCase();
+
+      if (!emailInput.endsWith('@mhs.ubpkarawang.ac.id')) {
+        alert('Pendaftaran gagal! Anda wajib menggunakan email mahasiswa resmi (@mhs.ubpkarawang.ac.id).');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      spinner.style.display = 'inline-block';
+
+      try {
+        const kartuFileInput = document.getElementById('kartuFile').files[0];
+        const buktiFileInput = document.getElementById('buktiFile').files[0];
+
+        if (kartuFileInput.size > 5 * 1024 * 1024 || buktiFileInput.size > 5 * 1024 * 1024) {
+          alert('Ukuran berkas maksimal adalah 5MB.');
+          submitBtn.disabled = false;
+          spinner.style.display = 'none';
+          return;
+        }
+
+        const kartuBase64 = await fileToBase64(kartuFileInput);
+        const buktiBase64 = await fileToBase64(buktiFileInput);
+
+        const payload = {
+          kategoriTiket: document.getElementById('kategoriTiket').value,
+          nama: document.getElementById('nama').value,
+          email: emailInput,
+          prodi: document.getElementById('prodi').value,
+          angkatan: document.getElementById('angkatan').value,
+          whatsapp: document.getElementById('whatsapp').value,
+          jenisKartu: jenisKartuSelect.value,
+          kartuFileName: kartuFileInput.name,
+          kartuFile: kartuBase64,
+          buktiFileName: buktiFileInput.name,
+          buktiFile: buktiBase64
+        };
+
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.result === 'success') {
+          successModal.classList.add('active');
+          form.reset();
+          labelKartu.innerHTML = `<i class="fa-solid fa-id-card"></i> Upload KTM (JPG, PNG, PDF)`;
+          loadKuotaInfo(); // Refresh kuota
+        } else {
+          alert(result.message);
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat mengirim data. Silakan coba lagi.');
+      } finally {
+        submitBtn.disabled = false;
+        spinner.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
